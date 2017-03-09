@@ -1,0 +1,38 @@
+<html ng-app="tw.repositories.example" ng-strict-di>
+
+<head>
+    <title>tw-repositories example</title>
+</head>
+
+<body ng-controller="MainController">
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th></th>
+        </tr>
+        <tr ng-repeat="item in items">
+            <td>{{item.id}}</td>
+            <td>{{item.name}}</td>
+            <td><button ng-click="selectItem(item)">Select</button><button ng-click="remove(item)">remove</button></td>
+        </tr>
+    </table>
+
+    <tw-list></tw-list>
+
+    <input ng-model="item.id" />
+    <input ng-model="item.name" />
+    <button ng-click="addItem()">add</button>
+    <button ng-click="update()">update</button>
+
+    <script src="../bower_components/angular/angular.js"></script>
+    <script src="../bower_components/rxjs/dist/rx.all.js"></script>
+    <script src="../bower_components/rx-angular/dist/rx.angular.js"></script>
+    <script src="../dist/tw-repositories.js"></script>
+    <script src="index.js"></script>
+    <script src="list.directive.js"></script>
+
+</body>
+
+</html>

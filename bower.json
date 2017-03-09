@@ -1,0 +1,14 @@
+{
+  "name": "tw-repositories",
+  "description": "a data layer framework",
+  "main": "index.js",
+  "authors": [
+    "Zhao Yu <zhaoyu@techwuli.com>"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "dependencies": {
+    "angular": "1.5.9",
+    "rx-angular": "angular-rx#^1.1.3"
+  }
+}

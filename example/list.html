@@ -1,0 +1,12 @@
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th></th>
+    </tr>
+    <tr ng-repeat="item in items">
+        <td>{{item.id}}</td>
+        <td>{{item.name}}</td>
+        <td><button ng-click="selectItem(item)">Select</button><button ng-click="remove(item)">remove</button></td>
+    </tr>
+</table>
