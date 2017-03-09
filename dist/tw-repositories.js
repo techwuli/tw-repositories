@@ -52,6 +52,12 @@
         self.observeList = observeList;
         self.remove = remove;
         self.update = update;
+        self.clear = clear;
+
+        function clear() {
+            self.data = [];
+            notifyListUpdated();
+        }
 
         function notifyListUpdated() {
             self.subject.onNext(angular.copy(self.data));

@@ -11,10 +11,15 @@
         $scope.addItem = addItem;
         $scope.update = update;
         $scope.remove = remove;
+        $scope.clear = clear;
 
         var itemRepository;
 
         init();
+
+        function clear() {
+            itemRepository.clear();
+        }
 
         function init() {
             itemRepository = twRepositories.get('items');
