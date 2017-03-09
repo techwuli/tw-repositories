@@ -69,10 +69,11 @@
             angular.forEach(self.data, function (item) {
                 if (item[self.keyField] === keyValue) {
                     result = angular.copy(item);
+                    return;
                 }
             });
 
-            return null;
+            return result;
         }
 
         function observeList(observer) {
