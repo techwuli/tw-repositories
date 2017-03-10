@@ -4,9 +4,9 @@
         .module('tw.repositories', ['rx'])
         .service('twRepositories', service);
 
-    service.$inject = ['rx'];
+    service.$inject = ['rx', 'orderByFilter'];
 
-    function service(rx) {
+    function service(rx, orderBy) {
         /* jshint validthis:true */
         var self = this;
         var repositories = [];
@@ -24,7 +24,7 @@
             });
 
             if (!result) {
-                result = new Repository(repositoryName, keyField, rx);
+                result = new Repository(repositoryName, keyField, rx, orderBy);
                 repositories.push(result);
             }
 
@@ -32,8 +32,9 @@
         }
     }
 
-    function Repository(name, keyField, rx) {
+    function Repository(name, keyField, rx, orderBy) {
         var self = this;
+
         self.data = [];
         self.name = name;
         self.keyField = keyField || 'id';
@@ -53,6 +54,7 @@
         self.find = find;
         self.observeList = observeList;
         self.remove = remove;
+        self.sort = sort;
         self.update = update;
 
         /**
@@ -61,6 +63,18 @@
         function clear() {
             self.data = [];
             notifyListUpdated();
+        }
+
+        /**
+         * sort the data
+         * @param {*} propertyName 
+         * @param {*} reverse 
+         */
+        function sort(propertyName, reverse) {
+            if (propertyName) {
+                self.data = orderBy(self.data, propertyName, reverse);
+                notifyListUpdated();
+            }
         }
 
         /**

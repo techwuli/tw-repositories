@@ -1,6 +1,6 @@
 {
   "name": "tw-repositories",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "a data layer framework",
   "main": "index.js",
   "scripts": {

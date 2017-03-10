@@ -14,11 +14,25 @@
 
         function controller($scope, twRepositories) {
             $scope.items = [];
+            var reverse = false;
+            $scope.sort = sort;
+
             var itemRepository = twRepositories.get('items');
 
             itemRepository.observeList(function (data) {
                 $scope.items = data;
             });
+
+            function sort(propertyName) {
+                if (propertyName && propertyName === $scope.propertyName) {
+                    reverse = !reverse;
+                }
+
+                $scope.propertyName = propertyName;
+
+                itemRepository.sort(propertyName, reverse);
+            }
+
         }
 
         return directive;
