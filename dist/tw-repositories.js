@@ -48,21 +48,32 @@
 
         self.add = add;
         self.addList = addList;
+        self.addOrUpdate = addOrUpdate;
+        self.clear = clear;
         self.find = find;
         self.observeList = observeList;
         self.remove = remove;
         self.update = update;
-        self.clear = clear;
 
+        /**
+         * clear this repository
+         */
         function clear() {
             self.data = [];
             notifyListUpdated();
         }
 
+        /**
+         * notify the repository is updated
+         */
         function notifyListUpdated() {
             self.subject.onNext(angular.copy(self.data));
         }
 
+        /**
+         * find item by key value   
+         * @param {*} keyValue the key value of the item which is looking for
+         */
         function find(keyValue) {
             var result;
 
@@ -76,11 +87,19 @@
             return result;
         }
 
+        /**
+         * observe this repository
+         * @param {*} observer 
+         */
         function observeList(observer) {
             self.multicasted.subscribe(observer);
             self.multicasted.connect();
         }
 
+        /**
+         * add the item to the repository
+         * @param {*} newItem 
+         */
         function add(newItem) {
             validateItem(newItem);
             var existed = false;
@@ -100,6 +119,10 @@
             notifyListUpdated();
         }
 
+        /**
+         * update the item in the repository
+         * @param {*} newItem 
+         */
         function update(newItem) {
             validateItem(newItem);
             var existed = false;
@@ -117,6 +140,32 @@
             }
         }
 
+        /**
+         * add or update the item in the repository
+         * @param {*} newItem 
+         */
+        function addOrUpdate(newItem) {
+            validateItem(newItem);
+            var existed = false;
+            angular.forEach(self.data, function (item, $index) {
+                if (item[self.keyField] === newItem[self.keyField]) {
+                    existed = true;
+                    self.data.splice($index, 1, angular.copy(newItem));
+                    return;
+                }
+            });
+
+            if (!existed) {
+                self.data.push(angular.copy(newItem));
+            }
+
+            notifyListUpdated();
+        }
+
+        /**
+         * add list to the repository
+         * @param {*} newList 
+         */
         function addList(newList) {
             angular.forEach(newList, function (newItem) {
                 validateItem(newItem);
@@ -136,6 +185,10 @@
             notifyListUpdated();
         }
 
+        /**
+         * remove item from the repository
+         * @param {*} keyValue 
+         */
         function remove(keyValue) {
             angular.forEach(self.data, function (item, $index) {
                 if (item[self.keyField] === keyValue) {
@@ -146,6 +199,10 @@
             });
         }
 
+        /**
+         * validate item
+         * @param {*} item 
+         */
         function validateItem(item) {
             if (!item[self.keyField]) {
                 throw 'Entity is not valid.';

@@ -4,12 +4,14 @@ var gulpUglify = require('gulp-uglify');
 var gulpRename = require('gulp-rename');
 
 gulp.task('js', function () {
-    return gulp.src('src/tw-repositories.js')
+    return gulp
+        .src('src/tw-repositories.js')
         .pipe(gulp.dest('dist/'));
 });
 
 gulp.task('js_min', function () {
-    return gulp.src('src/tw-repositories')
+    return gulp
+        .src('src/tw-repositories.js')
         .pipe(gulpUglify())
         .pipe(gulpRename('tw-repositories.min.js'))
         .pipe(gulp.dest('dist/'));
