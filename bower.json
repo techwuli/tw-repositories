@@ -8,7 +8,7 @@
   "license": "MIT",
   "homepage": "",
   "dependencies": {
-    "angular": "1.5.9",
+    "angular": "^1.6.4",
     "rx-angular": "angular-rx#^1.1.3"
   }
 }
